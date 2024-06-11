@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(KeyboardInput))]
+[RequireComponent(typeof(Player))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -9,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private KeyboardInput _keyboardInput;
     private Rigidbody2D _rigidbody;
     private GroundCheker _groundCheker;
-    [SerializeField] private bool _isGround = true;
+    private bool _isGround;
     
 
     private void Awake()
