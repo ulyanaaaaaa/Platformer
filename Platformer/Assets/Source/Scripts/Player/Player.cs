@@ -26,5 +26,10 @@ public class Player : MonoBehaviour
             Destroy(key.gameObject);
             OnChangeKeyCounter?.Invoke();
         }
+        
+        if (collider.gameObject.TryGetComponent(out Door door))
+        {
+            door.RestertLevel();
+        }
     }
 }

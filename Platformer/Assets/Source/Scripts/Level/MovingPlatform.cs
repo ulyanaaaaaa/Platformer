@@ -2,20 +2,19 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Thorn : MonoBehaviour
+public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private int _damage;
     [SerializeField] private float _speed;
     [SerializeField] private float _time;
+    private bool _isRightDirection;
     private Rigidbody2D _rigidbody;
     private Coroutine _directionTick;
-    private bool _isRightDirection;
-    
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-
+    
     private void Start()
     {
         _directionTick = StartCoroutine(DirectionTick());
@@ -29,7 +28,7 @@ public class Thorn : MonoBehaviour
         else
             _rigidbody.velocity = Vector2.left * _speed;
     }
-
+    
     private IEnumerator DirectionTick()
     {
         while (true)
@@ -41,11 +40,19 @@ public class Thorn : MonoBehaviour
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collider.gameObject.TryGetComponent(out PlayerHealth playerHealth))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
-            playerHealth.TakeDamage(_damage);
+            transform.parent = player.transform;
+        }
+    }
+    
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Player player))
+        {
+            transform.parent = null;
         }
     }
 }
