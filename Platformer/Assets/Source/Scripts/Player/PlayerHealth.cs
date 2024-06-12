@@ -25,10 +25,11 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        ChangeHealthBar?.Invoke();
-
-        if (Health == 0)
+        
+        if (Health <= 0)
             _sceneService.Restart();
+        
+        ChangeHealthBar?.Invoke();
     }
     
     public void Restore(int health)
