@@ -7,7 +7,7 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private Vector2 _endPosition;
     [SerializeField] private float _speed;
     private Rigidbody2D _rigidbody;
-    private Vector2 targetPoint;
+    private Vector2 _targetPosition;
     
     private void Awake()
     {
@@ -17,19 +17,19 @@ public class MovingPlatform : MonoBehaviour
     private void Start()
     {
         transform.position = _startPosition;
-        targetPoint = _endPosition;
+        _targetPosition = _endPosition;
     }
 
     private void Update()
     {
         Vector3 currentPosition = transform.position;
-        Vector3 newPosition = Vector3.MoveTowards(currentPosition, targetPoint, _speed * Time.fixedDeltaTime);
+        Vector3 newPosition = Vector3.MoveTowards(currentPosition, _targetPosition, _speed * Time.fixedDeltaTime);
 
         _rigidbody.MovePosition(newPosition);
 
-        if (Vector3.Distance(currentPosition, targetPoint) < 0.1f)
+        if (Vector3.Distance(currentPosition, _targetPosition) < 0.1f)
         {
-            targetPoint = targetPoint == _startPosition ? _endPosition : _startPosition;
+            _targetPosition = _targetPosition == _startPosition ? _endPosition : _startPosition;
         }
     }
     
