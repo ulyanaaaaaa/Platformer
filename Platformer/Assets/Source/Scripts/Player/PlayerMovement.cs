@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isGround)
             return;
-        
-        _rigidbody.velocity = Vector2.up * _jumpSpeed; 
+
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpSpeed);
     }
 
     private void LeftStep()
